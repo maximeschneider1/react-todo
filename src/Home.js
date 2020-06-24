@@ -28,6 +28,7 @@ class Home extends React.Component {
   };
 
   myCallback = (dataFromChild) => {
+    dataFromChild.id = this.state.todos.length
     var newArray = this.state.todos.slice();    
     newArray.push(dataFromChild);   
     this.setState({todos:newArray})
@@ -36,6 +37,12 @@ class Home extends React.Component {
   handleChange = (e) => {
     // this.setState({check: !this.state.check})
     console.log('Le lien a été cliqué.', this.state.todos);
+  }
+
+  deleteElement = (e) => {
+    this.setState({
+      todos: this.state.todos.filter(item => item.id !== e.id)
+    })
   }
 
   render() {
@@ -47,10 +54,11 @@ class Home extends React.Component {
               <p>{todo.title}</p>
               <p>{todo.description}</p>
               <p></p>
-              <input
+              {/* <input
                 type="checkbox"
                 onClick={() => this.handleChange(todo)}
-              />
+              /> */}
+              <button onClick={() => this.deleteElement(todo)}>X</button>
             </div>
           ))}
         </div>

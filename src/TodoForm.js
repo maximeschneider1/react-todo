@@ -6,44 +6,36 @@ class TodoForm extends React.Component {
   constructor() {
     super();
     this.state = { 
-        value: {
-            title: "",
-            description: "",
-            check: false,
-          },
-        newvalue: {
-            title: "",
-            description: "",
-        }
+        newTitle : "", 
+        newDescription: ""
      }
   }
 
   handleNewTaskName = (name) => {
-    this.setState({ value: name.target.value });
+    this.setState({ newTitle: name.target.value });
   };
   handleNewTaskDescription = (description) => {
-    this.setState({ value: description.target.value });
+    this.setState({ newDescription: description.target.value });
   };
 
   someFn = () => {
     let newItem = {
-        id: 2,
-        title: "Restaurant",
-        description: "Republique",
+
+        title: this.state.newTitle,
+        description: this.state.newDescription,
         check: true,
       }
-    console.log("ON EST LA")
+      this.setState({ newTitle: "" });
+      this.setState({ newDescription: "" });
     this.props.callbackFromParent(newItem);
     };
 
   render() {
     return (
       <div>
-            <form onSubmit={this.addItem}>
-            <input placeholder="enter task" value={this.state.value.title} onChange={this.handleNewTaskName}></input>
-            <input placeholder="enter task" value={this.state.value.description} onChange={this.handleNewTaskDescription}></input>
+            <input placeholder="Tâche" value={this.state.newTitle} onChange={this.handleNewTaskName}></input>
+            <input placeholder="Description" value={this.state.newDescription} onChange={this.handleNewTaskDescription}></input>
             <button type="submit" onClick={this.someFn}>add</button>
-          </form>
       </div>
     );
   }
